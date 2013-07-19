@@ -1,0 +1,90 @@
+{
+  "tasks": [{
+    "name": "archive",
+    "description": "Create An Archive Of Files Or Directories",
+    "license": "Apache 2.0",
+    "author":  "MaestroDev",
+    "version": "updated at build time",
+    "class":   "MaestroDev::ArchiveWorker",
+    "type":    "ruby",
+    "dependencies":[
+    ],
+    "task":{
+      "command": "/archive/archive",
+      "inputs": {
+        "path": {
+          "description": "Set Or Single Path For Adding To The Archive",
+          "required": true,
+          "type": "Array",
+          "value": []
+        },
+        "destination": {
+          "description": "File Location Target For The Archive",
+          "required": true,
+          "type": "String",
+          "value": ""
+        },
+        "filename": {
+          "description": "Name Of The Archive",
+          "required": true,
+          "type": "String",
+          "value": ""
+        },
+        "type": {
+          "description": "Type Of Archive To Create (zip|targz)",
+          "required": true,
+          "type": "String",
+          "value": ""
+        }
+      },
+      "type": "remote",
+      "tool_name": "Package",
+      "outputs": {"output" : {"type" : "String"}},
+      "icon": "archive.png"
+    }
+  },
+  {
+    "name": "zip",
+    "description": "Create A Zip Of Files Or Directories",
+    "license": "Apache 2.0",
+    "author":  "MaestroDev",
+    "version": "updated at build time",
+    "class":   "MaestroDev::ArchiveWorker",
+    "type":    "ruby",
+    "dependencies":[
+    ],
+    "task":{
+      "command": "/archive/archive",
+      "input": {
+        "path": {
+          "description": "Local File Path",
+          "required": true,
+          "type": "String",
+          "value": ""
+        },
+        "destination": {
+          "description": "Destination For Writing Archive",
+          "required": true,
+          "type": "String",
+          "value": ""
+        },
+        "filename": {
+          "description": "Name For Archive",
+          "required": true,
+          "type": "String",
+          "value": ""
+        },
+        "type": {
+          "description": "",
+          "required": true,
+          "type": "String",
+          "value": "zip"
+        }
+      },
+      "type": "remote",
+      "tool_name": "Package",
+      "outputs": {"output" : {"type" : "String"}},
+      "icon": "archive.png"
+    }
+  }]
+}
