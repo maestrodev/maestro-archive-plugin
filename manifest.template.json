@@ -55,7 +55,7 @@
     ],
     "task":{
       "command": "/archive/archive",
-      "input": {
+      "inputs": {
         "path": {
           "description": "Local File Path",
           "required": true,
