@@ -22,7 +22,7 @@ require 'zlib'
 require 'archive/tar/minitar'
 require 'json'
 
-describe MaestroDev::ArchiveWorker do
+describe MaestroDev::ArchivePlugin::ArchiveWorker do
 
   before(:all) do
     Maestro::MaestroWorker.mock!
