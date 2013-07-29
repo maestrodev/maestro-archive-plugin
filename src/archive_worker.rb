@@ -7,64 +7,47 @@ require 'digest/md5'
 require 'json'
 
 module MaestroDev
-  module ArchivePlugin
-    class PluginError < StandardError
-    end
-    
-    class ConfigError < PluginError
-    end
+  module Plugin
   
     class ArchiveWorker < Maestro::MaestroWorker
       include Archive::Tar
   
       def archive
-        write_output("\nStarting ARCHIVE task...\n", :buffer => true)
-        
-        begin
-          validate_parameters
+        validate_parameters
   
-          if @path.is_a?(Array)
-            if @type == 'zip'
-              write_output("\nCreating '#{@destination}/#{@filename}.zip", :buffer => true)
-              dest = make_zip("#{@destination}/#{@filename}.zip",
-                              @filename,
-                              *@path)
-            else
-              write_output("\nCreating '#{@destination}/#{@filename}.tar.gz", :buffer => true)
-              dest = make_tarball("#{@destination}/#{@filename}.tar.gz",
-                                  @filename,
-                                  *@path)
-            end
+        if @path.is_a?(Array)
+          if @type == 'zip'
+            write_output("\nCreating '#{@destination}/#{@filename}.zip", :buffer => true)
+            dest = make_zip("#{@destination}/#{@filename}.zip",
+                            @filename,
+                            *@path)
           else
-            if @type == 'zip'
-              write_output("\nCreating '#{@destination}/#{@filename}.zip", :buffer => true)
-              dest = make_zip("#{@destination}/#{@filename}.zip",
-                              @filename,
-                              @path)
-            else
-              write_output("\nCreating '#{@destination}/#{@filename}.tar.gz", :buffer => true)
-              dest = make_tarball("#{@destination}/#{@filename}.tar.gz",
-                                  @filename,
-                                  @path)
-            end
+            write_output("\nCreating '#{@destination}/#{@filename}.tar.gz", :buffer => true)
+            dest = make_tarball("#{@destination}/#{@filename}.tar.gz",
+                                @filename,
+                                *@path)
           end
-  
-          md5 = calculate_md5(dest)
-          write_output("\nSuccessfully Created Archive\n  name: #{dest}\n  md5:  #{md5}")
-          
-          save_output_value('archive', dest)
-          save_output_value('md5', md5)
-    
-          set_field('archive', {'archiveFile' => dest, 'archiveMD5' => md5}.to_json)
-        rescue PluginError => e
-          @error = e.message
-        rescue Exception => e
-          @error = "Error executing Archive Task: #{e.class} #{e}"
-          Maestro.log.warn("Error executing Archive Task: #{e.class} #{e}: " + e.backtrace.join("\n"))
+        else
+          if @type == 'zip'
+            write_output("\nCreating '#{@destination}/#{@filename}.zip", :buffer => true)
+            dest = make_zip("#{@destination}/#{@filename}.zip",
+                            @filename,
+                            @path)
+          else
+            write_output("\nCreating '#{@destination}/#{@filename}.tar.gz", :buffer => true)
+            dest = make_tarball("#{@destination}/#{@filename}.tar.gz",
+                                @filename,
+                                @path)
+          end
         end
-        
-        write_output "\n\nARCHIVE task complete\n"
-        set_error(@error) if @error
+  
+        md5 = calculate_md5(dest)
+        write_output("\nSuccessfully Created Archive\n  name: #{dest}\n  md5:  #{md5}")
+          
+        save_output_value('archive', dest)
+        save_output_value('md5', md5)
+    
+        set_field('archive', {'archiveFile' => dest, 'archiveMD5' => md5}.to_json)
       end
   
       def on_output(text)

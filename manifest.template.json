@@ -5,7 +5,7 @@
     "license": "Apache 2.0",
     "author":  "MaestroDev",
     "version": "updated at build time",
-    "class":   "MaestroDev::ArchivePlugin::ArchiveWorker",
+    "class":   "MaestroDev::Plugin::ArchiveWorker",
     "type":    "ruby",
     "dependencies":[
     ],
@@ -49,7 +49,7 @@
     "license": "Apache 2.0",
     "author":  "MaestroDev",
     "version": "updated at build time",
-    "class":   "MaestroDev::ArchivePlugin::ArchiveWorker",
+    "class":   "MaestroDev::Plugin::ArchiveWorker",
     "type":    "ruby",
     "dependencies":[
     ],
