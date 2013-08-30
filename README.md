@@ -1,5 +1,6 @@
 maestro-archive-plugin
 ====================
+[![Code Climate](https://codeclimate.com/github/maestrodev/maestro-archive-plugin.png)](https://codeclimate.com/github/maestrodev/maestro-archive-plugin)
 
 A Maestro Plugin that allows creation of zip/tar.gz archives
 
