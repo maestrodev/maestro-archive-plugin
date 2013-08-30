@@ -1,4 +1,5 @@
 {
+  "image": "archive.png",
   "tasks": [{
     "name": "archive",
     "description": "Create An Archive Of Files Or Directories",

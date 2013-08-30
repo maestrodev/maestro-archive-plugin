@@ -64,24 +64,6 @@ module MaestroDev
         File.exists?(path) and File.directory?(path)
       end
   
-      def booleanify(value)
-        res = false
-  
-        if value
-          if value.is_a?(TrueClass) || value.is_a?(FalseClass)
-            res = value
-          elsif value.is_a?(Fixnum)
-            res = value != 0
-          elsif value.respond_to?(:to_s)
-            value = value.to_s.downcase
-  
-            res = (value == 't' || value == 'true')
-          end
-        end
-  
-        res
-      end
-  
       def validate_parameters
         errors = []
   
