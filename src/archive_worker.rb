@@ -157,7 +157,7 @@ module MaestroDev
   
       def calculate_md5(filename)
         begin
-          digest = Digest::MD5.hexdigest(File.read(filename))
+          digest = Digest::MD5.file(filename).hexdigest
           md5File = filename+'.md5'
           File.open(md5File, 'w') { |f| f.write(digest) }
           return md5File
